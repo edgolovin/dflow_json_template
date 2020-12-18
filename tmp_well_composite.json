@@ -1,0 +1,236 @@
+{
+  "template_version": 0.1,
+  "global_meta": {
+    "date_created": "2020-12-08",
+    "title": "well composite vertical",
+    "GUID": "6e0f5d98e5cadc35a73f9c27005379d54117860d",
+    "parameters": [
+      "well",
+      "composite",
+      "UpwindSolver",
+      "compute_all"
+    ]
+  },
+  "solver": {
+    "type": "UpwindSolver",
+    "pvt_model": {
+      "type": "composite",
+      "meta": {
+        "date_created": "2020-12-08 16:25:43.511",
+        "title": "Composite",
+        "GUID": "6e0f5d98e5cadc35a73f9c27005379d54117860d",
+        "components": [
+          "water",
+          "C1",
+          "C2",
+          "C3"
+        ]
+      },
+      "composite": {
+        "water": {
+          "type": "Properties",
+          "viscosity": 0.00055,
+          "density": 1040,
+          "compressibility": 4.4e-10,
+          "heat_capacity": 4200,
+          "thermal_cond": 0.6
+        },
+        "components": [
+          {
+            "name": "C1",
+            "type": "PureComponentProperties",
+            "carbon_number": 1,
+            "molar_mass": 0.0160428,
+            "pres_critical": 4599200,
+            "temp_critical": 190.564,
+            "vol_critical": 9.862e-05,
+            "acentric_factor": 0.0104,
+            "heat_capacity_gas": 2224.67,
+            "heat_capacity_liq": 3299.3,
+            "evaporation_heat": 511000,
+            "viscosity_gas": 1.11e-05,
+            "viscosity_liq": 0.000117
+          },
+          {
+            "name": "C2",
+            "type": "PureComponentProperties",
+            "carbon_number": 2,
+            "molar_mass": 0.03007,
+            "pres_critical": 4871800,
+            "temp_critical": 305.33,
+            "vol_critical": 0.00014319,
+            "acentric_factor": 0.0991,
+            "heat_capacity_gas": 1745.59,
+            "heat_capacity_liq": 2278.02,
+            "evaporation_heat": 487000,
+            "viscosity_gas": 9.3e-06,
+            "viscosity_liq": 0.000167
+          },
+          {
+            "name": "C3",
+            "type": "PureComponentProperties",
+            "carbon_number": 3,
+            "molar_mass": 0.044096,
+            "pres_critical": 4247660,
+            "temp_critical": 369.85,
+            "vol_critical": 0.0002,
+            "acentric_factor": 0.152,
+            "heat_capacity_gas": 1669.09,
+            "heat_capacity_liq": 2230.59,
+            "evaporation_heat": 428000,
+            "viscosity_gas": 8.1e-06,
+            "viscosity_liq": 0.000198
+          }
+        ],
+        "binary_coefficients": [
+          {
+            "type": "InteractionBinaryCoefficient",
+            "name1": "C1",
+            "name2": "C2",
+            "k": 0
+          },
+          {
+            "type": "InteractionBinaryCoefficient",
+            "name1": "C1",
+            "name2": "C3",
+            "k": 0
+          },
+          {
+            "type": "InteractionBinaryCoefficient",
+            "name1": "C2",
+            "name2": "C3",
+            "k": 0
+          }
+        ]
+      }
+    },
+    "numerical_params": {
+      "model": "BeggsBrill",
+      "wall_friction_factor": 0.5,
+      "heat_transfer_factor": 1
+    },
+    "solver_methods": {
+      "traverse_simple_circuit": {
+        "bc_left": {
+          "type": "PressureBoundaryCondition",
+          "name": "bc_left",
+          "pressure": 24300000,
+          "temperature": 316,
+          "frac_water": 0,
+          "frac_liquid": 0,
+          "frac_gas": 1,
+          "molar_fraction": [
+            0.82532,
+            0.135563,
+            0.039117
+          ]
+        },
+        "Channel": {
+          "name": "channel",
+          "parts": [
+            {
+              "type": "ChannelPart",
+              "PartName": "0",
+              "length": 500,
+              "ncells": 5,
+              "roughness": 1e-05,
+              "sine": -1,
+              "diameter": 0.0743,
+              "frac_liquid": 0,
+              "frac_gas": 1,
+              "frac_water": 0,
+              "pressure": 28110000.0,
+              "wall_temperature": 319.0,
+              "temperature": 319.0,
+              "molar_fraction": [
+                0.82532,
+                0.135563,
+                0.039117
+              ]
+            },
+            {
+              "type": "ChannelPart",
+              "PartName": "1",
+              "length": 500,
+              "ncells": 5,
+              "roughness": 1e-05,
+              "sine": -1,
+              "diameter": 0.0743,
+              "frac_liquid": 0,
+              "frac_gas": 1,
+              "frac_water": 0,
+              "pressure": 28110000.0,
+              "wall_temperature": 319.0,
+              "temperature": 319.0,
+              "molar_fraction": [
+                0.82532,
+                0.135563,
+                0.039117
+              ]
+            },
+            {
+              "type": "ChannelPart",
+              "PartName": "2",
+              "length": 500,
+              "ncells": 5,
+              "roughness": 1e-05,
+              "sine": -1,
+              "diameter": 0.0743,
+              "frac_liquid": 0,
+              "frac_gas": 1,
+              "frac_water": 0,
+              "pressure": 28110000.0,
+              "wall_temperature": 319.0,
+              "temperature": 319.0,
+              "molar_fraction": [
+                0.82532,
+                0.135563,
+                0.039117
+              ]
+            }
+          ]
+        },
+        "bc_right": {
+          "type": "PressureBoundaryCondition",
+          "name": "bc_right",
+          "pressure": 35000000.0,
+          "temperature": 416,
+          "frac_water": 0,
+          "frac_liquid": 0,
+          "frac_gas": 1,
+          "molar_fraction": [
+            0.82532,
+            0.135563,
+            0.039117
+          ]
+        }
+      },
+      "compute_all": {
+        "time": 1000,
+        "dt": 0.005,
+        "dtmax": 5e-2,
+        "delta_seconds": 100,
+        "path_text": "output.tsv"
+      }
+    }
+  },
+  "launch_parameters": {
+    "cache": {
+      "arg": 0,
+      "cache_data": {
+        "cache.json теперь здесь": ""
+      },
+      "restart": "time"
+    },
+    "methane_density": "./methane_dens.txt"
+  },
+  "output_regulations": {
+    "Здесь любые правила для формирования выходных файлов": ""
+  },
+  "GlobalLogger": {
+    "write_main_log": "output_main.log",
+    "write_init_log": "output_init.log",
+    "write_density_log": "output_densities.log",
+    "write_fraction_log": "output_fractions.log"
+  }
+}

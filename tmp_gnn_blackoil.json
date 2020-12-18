@@ -1,0 +1,190 @@
+{
+  "template_version": 0.1,
+  "meta_global": {
+    "date_created": "2020-12-08",
+    "title": "gnn blackoil",
+    "GUID": "6e0f5d98e5cadc35a73f9c27005379d54117860d",
+    "parameters": [
+	  "gnn",
+	  "blackoil",
+      "ComputationPipeLineCircuit",
+      "compute_all"
+    ]
+  },
+  "solver": {
+    "type": "ComputationPipeLineCircuit",
+	"pvt_model": {
+	  "type": "blackoil",	
+      "meta": {
+        "date_created": "2020-12-08 16:25:43.511",
+        "title": "Blackoil",
+        "hash": "6e0f5d98e5cadc35a73f9c27005379d54117860d",
+        "components": [
+          "water",
+          "liquid",
+		  "gas"
+        ]
+      },
+      "blackoil": {
+			"liquid": {
+				"type": "Properties",			
+				"viscosity": 0.002,
+				"density": 760,
+				"compressibility": 2.2e-09,
+				"heat_capacity": 2000,
+				"thermal_cond": 0.14
+			},
+			"gas": {
+				"type": "Properties",
+				"viscosity": 1.2e-05,
+				"density": 0.815,
+				"compressibility": 1e-05,
+				"heat_capacity": 2200,
+				"thermal_cond": 0.03
+			},
+			"water": {
+				"type": "Properties",			
+				"viscosity": 0.00055,
+				"density": 1040,
+				"compressibility": 4.4e-10,
+				"heat_capacity": 4200,
+				"thermal_cond": 0.6
+			}
+      }
+    },
+	"numerical_params": {
+        "model": "BeggsBrill",
+        "wall_friction_factor": 0.5,
+        "heat_transfer_factor": 1
+    },
+    "solver_methods": {
+      "pipeline_circuit": {  
+	    "pipes": [
+            {
+			  "type": "Pipe",
+              "name": "1",
+              "length": 500,
+              "roughness": 1e-05,
+              "sine": -1,
+              "diameter": 0.325,
+              "frac_liquid": 0,
+              "frac_gas": 1,
+              "frac_water": 0,
+              "pressure": 1e6,
+              "wall_temperature": 319.0,
+              "temperature": 319.0,
+              "molar_fraction": []
+            },
+	        {
+			  "type": "Pipe",
+              "name": "2",
+              "length": 500,
+              "roughness": 1e-05,
+              "sine": -1,
+              "diameter": 0.325,
+              "frac_liquid": 0,
+              "frac_gas": 1,
+              "frac_water": 0,
+              "pressure": 1e6,
+              "wall_temperature": 319.0,
+              "temperature": 319.0,
+              "molar_fraction": []
+            }
+        ],
+		"nodes": [
+		    {
+				"type": "PressureBoundNode",
+				"name": "source",
+				"length": 1.0,
+				"sine": 0,
+				"diameter": 0.325,
+				"roughness": 0.0001,
+				"frac_liquid": 0,
+				"frac_gas": 0.9,
+				"frac_water": 0.1,
+				"pressure": 1.2e6,
+				"wall_temperature": 300,
+				"temperature": 300,
+				"molar_fraction": []
+			},
+			{
+				"type": "Node",
+				"name": "node",
+				"length": 1.0,
+				"sine": 0,
+				"diameter": 0.325,
+				"roughness": 0.0001,
+				"frac_liquid": 0,
+				"frac_gas": 0.9,
+				"frac_water": 0.1,
+				"pressure": 1e6,
+				"wall_temperature": 300,
+				"temperature": 300,
+				"molar_fraction": []
+			},
+		    {
+				"type": "PressureBoundNode",
+				"name": "sink",
+				"length": 1.0,
+				"sine": 0,
+				"diameter": 0.325,
+				"roughness": 0.0001,
+				"frac_liquid": 0,
+				"frac_gas": 0.9,
+				"frac_water": 0.1,
+				"pressure": 1e6,
+				"wall_temperature": 300,
+				"temperature": 300,
+				"molar_fraction": []
+			}	
+		],
+		"connections": [
+			{
+				"type": "Connection",
+				"node_name": "source",
+				"input_pipes": [],
+				"output_pipes": ["1"]
+			},
+			{
+				"type": "Connection",
+				"node_name": "node",
+				"input_pipes": ["1"],
+				"output_pipes": ["2"]
+			},
+			{
+				"type": "Connection",
+				"node_name": "sink",
+				"input_pipes": ["2"],
+				"output_pipes": []
+			}
+		]
+		},		
+      "compute_all": {
+        "time": 1000,
+		"dt": 0.005,
+        "dtmax": 5e-2,
+        "delta_seconds": 100,
+        "path_text": "output.tsv"
+      }
+	}
+	},
+  "launch_parameters": {
+    "cache": {
+      "arg": 0,
+      "cache_data": {
+        "cache.json теперь здесь": ""
+      },
+      "restart": "time"
+    },
+    "methane_density": "./methane_dens.txt"
+  },
+  "output_regulations": {
+    "Здесь любые правила для формирования выходных файлов": ""
+  },
+  "GlobalLogger": {
+    "write_main_log": "output_main.log",
+    "write_init_log": "output_init.log",
+    "write_density_log": "output_densities.log",
+    "write_fraction_log": "output_fractions.log"
+  }
+}
